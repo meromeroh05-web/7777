@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>معرض الحاج ماهر - لبيع السيارات</title>
+  <style>
+    :root{
+      --primary:#0b5f8a;
+      --accent:#f4bf44;
+      --dark:#0b2a33;
+      --muted:#f2f6f8;
+      --card:#ffffff;
+      --danger:#e63946;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Tahoma, Arial, "Noto Naskh Arabic", sans-serif;background:linear-gradient(180deg,#f7fbfc 0%, #eef6f9 100%);color:#0b2a33;line-height:1.5}
+    header{background:linear-gradient(90deg,var(--primary),#0b7aa6);color:#fff;padding:28px 18px;text-align:center}
+    header h1{margin:0;font-size:28px;letter-spacing:1px}
+    header p{margin:6px 0 0;opacity:0.95}
+    nav{display:flex;gap:12px;justify-content:center;padding:12px;background:#08323f;flex-wrap:wrap}
+    nav a{color:#fff;text-decoration:none;padding:10px 14px;border-radius:6px;font-weight:700}
+    nav a:hover{background:rgba(255,255,255,0.06)}
+    .container{max-width:1200px;margin:24px auto;padding:0 16px}
+    .hero{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .hero .intro{flex:1;min-width:280px}
+    .hero h2{margin:0 0 8px;font-size:24px}
+    .hero p{margin:0 0 12px;color:#073642}
+    .hero .cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{background:var(--primary);color:#fff;padding:10px 16px;border:none;border-radius:8px;cursor:pointer;font-weight:700}
+    .btn.secondary{background:var(--accent);color:#0b2a33}
+    .searchbar{display:flex;gap:8px;align-items:center;margin-top:12px}
+    .searchbar input{flex:1;padding:10px;border-radius:8px;border:1px solid #d6e6eb}
+    .searchbar select{padding:10px;border-radius:8px;border:1px solid #d6e6eb}
+    /* Gallery */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:20px}
+    .card{background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(11,42,51,0.06);display:flex;flex-direction:column}
+    .card img{width:100%;height:160px;object-fit:cover;display:block}
+    .card .body{padding:12px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+    .car-title{font-weight:800;margin:0 0 6px}
+    .car-meta{color:#4b6b73;font-size:14px;margin-bottom:8px}
+    .price{font-weight:900;color:var(--primary);font-size:18px}
+    .card .actions{display:flex;gap:8px;margin-top:10px}
+    .small{padding:8px 10px;font-size:14px;border-radius:8px;border:1px solid #e6eef0;background:#fff;cursor:pointer}
+    /* Sidebar */
+    .layout{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:20px}
+    .sidebar{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(11,42,51,0.04)}
+    .sidebar h3{margin-top:0}
+    .cart-list{list-style:none;padding:0;margin:0}
+    .cart-list li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eef6f8}
+    /* Forms */
+    .form{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(11,42,51,0.04)}
+    .form input,.form select{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #e6eef0}
+    .form label{font-weight:700;font-size:14px}
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(3,18,22,0.6);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+    .modal .panel{background:#fff;border-radius:12px;max-width:900px;width:100%;overflow:hidden;display:flex;gap:0;flex-wrap:wrap}
+    .modal .left{flex:1;min-width:320px}
+    .modal .right{width:360px;padding:18px}
+    .modal img{width:100%;height:420px;object-fit:cover;display:block}
+    .close{background:#eee;border-radius:8px;padding:6px 10px;border:none;cursor:pointer}
+    /* Footer */
+    footer{margin-top:30px;background:#07202a;color:#fff;padding:18px;text-align:center;border-top:4px solid var(--primary)}
+    /* Responsive */
+    @media(max-width:900px){.layout{grid-template-columns:1fr}.modal img{height:260px}.modal .right{width:100%}}
+    /* Big site feel */
+    .big-title{font-size:20px;font-weight:900;color:var(--dark);margin:6px 0}
+    .badge{background:var(--accent);padding:6px 10px;border-radius:999px;font-weight:800}
+    .owner{font-weight:900;color:#08323f}
+    .muted{color:#6b8a90}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>معرض الحاج (ماهر) لبيع السيارات</h1>
+  <p>ثقة، جودة، وخدمة مميزة — سيارات جديدة ومستعملة بحالة ممتازة</p>
+</header>
+
+<nav>
+  <a href="#home">الرئيسية</a>
+  <a href="#gallery">المعرض</a>
+  <a href="#signup">تسجيل</a>
+  <a href="#cart">سلة المشتريات</a>
+  <a href="#payment">الدفع</a>
+  <a href="#contact">تواصل معنا</a>
+</nav>
+
+<div class="container" id="home">
+  <div class="hero">
+    <div class="intro">
+      <div class="big-title">أهلاً بك في معرض <span class="owner">الحاج ماهر</span></div>
+      <p class="muted">نقدم مجموعة واسعة من السيارات من علامات عالمية ومحلية. تصفح، احفظ المفضلات، وأكمل الشراء بسهولة.</p>
+
+      <div class="searchbar" role="search">
+        <input id="searchInput" placeholder="ابحث عن موديل أو ماركة أو سنة" />
+        <select id="filterSelect">
+          <option value="">كل الفئات</option>
+          <option value="سيدان">سيدان</option>
+          <option value="SUV">SUV</option>
+          <option value="هاتشباك">هاتشباك</option>
+          <option value="شاحنة">شاحنة</option>
+        </select>
+        <button class="btn" id="searchBtn">ابحث</button>
+        <button class="btn secondary" id="showAllBtn">عرض الكل</button>
+      </div>
+    </div>
+
+    <div style="min-width:260px;text-align:center">
+      <div style="background:linear-gradient(180deg,#fff 0,#f7fbfc 100%);padding:14px;border-radius:12px;box-shadow:0 8px 24px rgba(11,42,51,0.06)">
+        <div style="font-weight:900;font-size:18px">اتصل الآن</div>
+        <div style="margin-top:8px;color:#0b2a33">هاتف المعرض: <strong>01092626812-MAHER</strong></div>
+        <div style="margin-top:10px"><button class="btn" onclick="scrollToSection('gallery')">تصفح المعرض</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <main>
+      <section id="gallery" aria-label="معرض السيارات">
+        <h2 style="margin:12px 0 6px">المعرض الكبير للسيارات</h2>
+        <p class="muted">أكثر من 24 صورة لسيارات متنوعة — اضغط على أي سيارة لعرض التفاصيل وإضافتها للسلة.</p>
+
+        <div class="gallery-grid" id="carsGrid">
+          <!-- سيتم تعبئة البطاقات عبر JavaScript -->
+        </div>
+
+        <div style="margin-top:18px;text-align:center">
+          <button class="btn" id="loadMoreBtn">تحميل المزيد من السيارات</button>
+        </div>
+      </section>
+
+      <section id="signup" style="margin-top:28px">
+        <h2>تسجيل حساب جديد / تسجيل دخول</h2>
+        <div class="form" style="display:flex;gap:16px;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px">
+            <label>إنشاء حساب جديد</label>
+            <input id="regName" placeholder="الاسم الكامل" />
+            <input id="regEmail" placeholder="البريد الإلكتروني" />
+            <input id="regPass" type="password" placeholder="كلمة المرور" />
+            <button class="btn" id="registerBtn">إنشاء حساب</button>
+          </div>
+          <div style="flex:1;min-width:260px">
+            <label>تسجيل دخول</label>
+            <input id="loginEmail" placeholder="البريد الإلكتروني" />
+            <input id="loginPass" type="password" placeholder="كلمة المرور" />
+            <button class="btn secondary" id="loginBtn">تسجيل الدخول</button>
+            <div id="authMsg" style="margin-top:8px;color:var(--danger);font-weight:700"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" style="margin-top:28px">
+        <h2>تواصل معنا</h2>
+        <div class="form">
+          <label>الاسم</label>
+          <input id="contactName" placeholder="اسمك" />
+          <label>البريد الإلكتروني</label>
+          <input id="contactEmail" placeholder="بريدك" />
+          <label>الرسالة</label>
+          <textarea id="contactMsg" style="width:100%;min-height:100px;padding:10px;border-radius:8px;border:1px solid #e6eef0"></textarea>
+          <button class="btn" id="sendContact">إرسال الرسالة</button>
+        </div>
+      </section>
+    </main>
+
+    <aside class="sidebar" id="cart">
+      <h3>سلة المشتريات</h3>
+      <ul class="cart-list" id="cartList">
+        <!-- عناصر السلة -->
+      </ul>
+      <div style="margin-top:12px">
+        <div style="display:flex;justify-content:space-between;font-weight:800">
+          <div>المجموع</div>
+          <div id="cartTotal">0 ج.م</div>
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn" id="checkoutBtn">إتمام الشراء</button>
+          <button class="btn secondary" id="clearCartBtn" style="margin-top:8px">تفريغ السلة</button>
+        </div>
+      </div>
+
+      <div style="margin-top:18px">
+        <h4>معلومات المعرض</h4>
+        <p class="muted">صاحب المعرض: <span class="owner">الحاج ماهر</span></p>
+        <p class="muted">العنوان: مركز شربين ، الدقهليه، مصر</p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- Modal تفاصيل السيارة -->
+<div class="modal" id="carModal" aria-hidden="true">
+  <div class="panel" role="dialog" aria-modal="true">
+    <div class="left">
+      <img id="modalImg" src="" alt="صورة السيارة" />
+    </div>
+    <div class="right">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div id="modalTitle" style="font-weight:900;font-size:18px"></div>
+          <div id="modalMeta" class="muted" style="font-size:14px;margin-top:6px"></div>
+        </div>
+        <button class="close" id="closeModal">إغلاق</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <div style="font-weight:800;color:var(--primary);font-size:20px" id="modalPrice"></div>
+        <p id="modalDesc" style="margin-top:10px;color:#234b52"></p>
+      </div>
+
+      <div style="margin-top:18px;display:flex;gap:8px">
+        <button class="btn" id="addToCartBtn">أضف إلى السلة</button>
+        <button class="btn secondary" id="buyNowBtn">اشترِ الآن</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- صفحة دفع وهمي -->
+<div id="paymentSection" style="display:none;padding:24px;background:linear-gradient(180deg,#fff,#f7fbfc);">
+  <div class="container">
+    <h2>صفحة الدفع</h2>
+    <div class="form" style="max-width:720px;margin:auto">
+      <label>اسم صاحب البطاقة</label>
+      <input id="cardName" placeholder="الاسم كما على البطاقة" />
+      <label>رقم البطاقة</label>
+      <input id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" />
+      <label>تاريخ الانتهاء</label>
+      <input id="cardExpiry" placeholder="MM/YY" />
+      <label>CVV</label>
+      <input id="cardCvv" placeholder="XXX" />
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn" id="payBtn">ادفع الآن</button>
+        <button class="btn secondary" id="cancelPay">إلغاء</button>
+      </div>
+      <div id="payMsg" style="margin-top:12px;font-weight:800"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>© جميع الحقوق محفوظة معرض الحاج ماهر</div>
+      <div class="muted">تصميم وتطوير سريع لعرض السيارات</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /********* بيانات أولية للسيارات (صور حقيقية من الإنترنت) *********/
+  const initialCars = [
+    {id:1, title:"مكلارن سوبر كار 2021", type:"سيدان", price:18000000, img:"https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=80", desc:"حالة ممتازة، عداد منخفض، صيانة كاملة."},
+    {id:2, title:"هيونداي توسان 2020", type:"SUV", price:1400000, img:"https://images.unsplash.com/photo-1549921296-3a6b6f3b0b3b?auto=format&fit=crop&w=1200&q=80", desc:"SUV عائلية، مريحة واقتصادية."},
+    {id:3, title:" بورش 2019", type:"سيدان", price:9000000, img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80", desc:"فخامة ألمانية، داخلية جلد."},
+    {id:4, title:" نيسان صني 2018", type:"سيدان", price:700000, img:"https://images.unsplash.com/photo-1523986371872-9d3ba2e2f642?auto=format&fit=crop&w=1200&q=80", desc:"اقتصادية ومناسبة للمدينة."},
+    {id:5, title:" BMW 2017", type:"هاتشباك", price:1700000, img:"https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80", desc:"قوة وأداء عالي، رياضية."},
+    {id:6, title:"جيب رانجلر 2022", type:"شاحنة", price:1100000, img:"https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80", desc:"جاهزة للطرق الوعرة، حالة ممتازة."},
+    {id:7, title:"بي ام دبليو X5 2021", type:"SUV", price:1250000, img:"https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1200&q=80", desc:"فخامة وأداء عالي."},
+    {id:8, title:"كيا سيراتو 2019", type:"سيدان", price:260000, img:"https://images.unsplash.com/photo-1542362567-3a6b6f3b0b3b?auto=format&fit=crop&w=1200&q=80", desc:"قيمة ممتازة مقابل السعر."},
+    {id:9, title:"فورد F-150 2020", type:"شاحنة", price:980000, img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80", desc:"شاحنة قوية ومناسبة للأعمال."},
+    {id:10, title:"أودي A4 2018", type:"سيدان", price:690000, img:"https://images.unsplash.com/photo-1511919884226-6f8f6f6f6f6f?auto=format&fit=crop&w=1200&q=80", desc:"داخلية أنيقة وتقنيات حديثة."},
+    {id:11, title:"هوندا سيفيك 2020", type:"هاتشباك", price:330000, img:"https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=1200&q=80", desc:"اعتمادية واقتصادية."},
+    {id:12, title:"لكزس RX 2019", type:"SUV", price:980000, img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80", desc:"راحة وفخامة يابانية."},
+    {id:13, title:"فيات 500 2017", type:"هاتشباك", price:150000, img:"https://images.unsplash.com/photo-1503376780353-3a6b6f3b0b3b?auto=format&fit=crop&w=1200&q=80", desc:"مناسبة للمدينة وممتعة للقيادة."},
+    {id:14, title:"رنج روفر 2021", type:"SUV", price:2200000, img:"https://images.unsplash.com/photo-1502877338535-3a6b6f3b0b3b?auto=format&fit=crop&w=1200&q=80", desc:"قمة الفخامة والراحة."},
+    {id:15, title:"سوبارو فورستر 2018", type:"SUV", price:480000, img:"https://images.unsplash.com/photo-1519681393784-3a6b6f3b0b3b?auto=format&fit=crop&w=1200&q=80", desc:"مناسبة للعائلات والرحلات."},
+    {id:16, title:"مازدا 3 2019", type:"سيدان", price:290000, img:"https://images.unsplash.com/photo-1525609004556-3a6b6f3b0b3b?auto=format&fit=crop&w=1200&q=80", desc:"تصميم جذاب واقتصادية."},
+    {id:17, title:"بيجو 3008 2020", type:"SUV", price:450000, img:"https://images.unsplash.com/photo-1503376780353-9d3ba2e2f642?auto=format&fit=crop&w=1200&q=80", desc:"تصميم فرنسي أنيق."},
+    {id:18, title:"سيتروين C3 2019", type:"هاتشباك", price:220000, img:"https://images.unsplash.com/photo-1549921296-9d3ba2e2f642?auto=format&fit=crop&w=1200&q=80", desc:"مريحة واقتصادية."},
+    {id:19, title:"مرسيدس GLC 2020", type:"SUV", price:980000, img:"https://images.unsplash.com/photo-1511919884226-9d3ba2e2f642?auto=format&fit=crop&w=1200&q=80", desc:"فخامة وأداء ممتاز."},
+    {id:20, title:"تويوتا لاندكروزر 2016", type:"شاحنة", price:1450000, img:"https://images.unsplash.com/photo-1502877338535-9d3ba2e2f642?auto=format&fit=crop&w=1200&q=80", desc:"قوية ومناسبة للطرق الصعبة."},
+    {id:21, title:"أوبل أسترا 2018", type:"سيدان", price:240000, img:"https://images.unsplash.com/photo-1523986371872-3a6b6f3b0b3b?auto=format&fit=crop&w=1200&q=80", desc:"قيمة جيدة ومريحة."},
+    {id:22, title:"سكودا أوكتافيا 2019", type:"سيدان", price:310000, img:"https://images.unsplash.com/photo-1542362567-9d3ba2e2f642?auto=format&fit=crop&w=1200&q=80", desc:"عملية وواسعة."},
+    {id:23, title:"رينو كليو 2017", type:"هاتشباك", price:180000, img:"https://images.unsplash.com/photo-1519681393784-9d3ba2e2f642?auto=format&fit=crop&w=1200&q=80", desc:"مناسبة للمدينة واقتصادية."},
+    {id:24, title:"تسلا موديل 3 2021", type:"سيدان", price:1250000, img:"https://images.unsplash.com/photo-1503376780353-6f8f6f6f6f6f?auto=format&fit=crop&w=1200&q=80", desc:"كهربائية بتقنيات متقدمة."}
+  ];
+
+  /********* حالة التطبيق *********/
+  let cars = [...initialCars];
+  let displayedCount = 12;
+  let cart = JSON.parse(localStorage.getItem('cart_maher') || '[]');
+  let users = JSON.parse(localStorage.getItem('users_maher') || '[]');
+  let currentUser = JSON.parse(localStorage.getItem('user_logged_maher') || 'null');
+
+  /********* عناصر DOM *********/
+  const carsGrid = document.getElementById('carsGrid');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  const cartList = document.getElementById('cartList');
+  const cartTotal = document.getElementById('cartTotal');
+  const carModal = document.getElementById('carModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalMeta = document.getElementById('modalMeta');
+  const modalPrice = document.getElementById('modalPrice');
+  const modalDesc = document.getElementById('modalDesc');
+  const closeModal = document.getElementById('closeModal');
+  const addToCartBtn = document.getElementById('addToCartBtn');
+  const buyNowBtn = document.getElementById('buyNowBtn');
+  const searchBtn = document.getElementById('searchBtn');
+  const showAllBtn = document.getElementById('showAllBtn');
+  const searchInput = document.getElementById('searchInput');
+  const filterSelect = document.getElementById('filterSelect');
+  const registerBtn = document.getElementById('registerBtn');
+  const loginBtn = document.getElementById('loginBtn');
+  const authMsg = document.getElementById('authMsg');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const clearCartBtn = document.getElementById('clearCartBtn');
+  const paymentSection = document.getElementById('paymentSection');
+  const payBtn = document.getElementById('payBtn');
+  const cancelPay = document.getElementById('cancelPay');
+  const payMsg = document.getElementById('payMsg');
+
+  let selectedCar = null;
+
+  /********* وظائف العرض *********/
+  function formatPrice(n){ return n.toLocaleString('ar-EG') + ' ج.م'; }
+
+  function renderCars(list){
+    carsGrid.innerHTML = '';
+    const slice = list.slice(0, displayedCount);
+    slice.forEach(car=>{
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img loading="lazy" src="${car.img}" alt="${car.title}" />
+        <div class="body">
+          <div>
+            <div class="car-title">${car.title}</div>
+            <div class="car-meta">${car.type} • موديل ${car.title.match(/\\d{4}/) ? car.title.match(/\\d{4}/)[0] : ''}</div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="price">${formatPrice(car.price)}</div>
+              <div style="display:flex;gap:8px">
+                <button class="small" onclick="openDetails(${car.id})">تفاصيل</button>
+                <button class="small" onclick="addToCart(${car.id})">أضف للسلة</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      carsGrid.appendChild(card);
+    });
+  }
+
+  function loadMore(){
+    displayedCount += 8;
+    renderCars(cars);
+  }
+
+  loadMoreBtn.addEventListener('click', loadMore);
+  showAllBtn.addEventListener('click', ()=>{ displayedCount = cars.length; renderCars(cars); });
+
+  /********* تفاصيل السيارة *********/
+  function openDetails(id){
+    selectedCar = cars.find(c=>c.id===id);
+    if(!selectedCar) return;
+    modalImg.src = selectedCar.img;
+    modalTitle.textContent = selectedCar.title;
+    modalMeta.textContent = selectedCar.type;
+    modalPrice.textContent = formatPrice(selectedCar.price);
+    modalDesc.textContent = selectedCar.desc;
+    carModal.style.display = 'flex';
+    carModal.setAttribute('aria-hidden','false');
+  }
+  closeModal.addEventListener('click', ()=>{ carModal.style.display='none'; carModal.setAttribute('aria-hidden','true'); });
+
+  /********* السلة *********/
+  function saveCart(){ localStorage.setItem('cart_maher', JSON.stringify(cart)); }
+  function renderCart(){
+    cartList.innerHTML = '';
+    let total = 0;
+    cart.forEach(item=>{
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${item.title}</span><span>${formatPrice(item.price)} <button class="small" onclick="removeFromCart(${item.id})">حذف</button></span>`;
+      cartList.appendChild(li);
+      total += item.price;
+    });
+    cartTotal.textContent = formatPrice(total);
+  }
+  function addToCart(id){
+    const car = cars.find(c=>c.id===id);
+    if(!car) return alert('خطأ في إضافة السيارة');
+    cart.push({id:car.id,title:car.title,price:car.price});
+    saveCart();
+    renderCart();
+    alert('تمت إضافة السيارة إلى السلة');
+  }
+  function removeFromCart(id){
+    cart = cart.filter(i=>i.id!==id);
+    saveCart();
+    renderCart();
+  }
+  clearCartBtn.addEventListener('click', ()=>{ cart=[]; saveCart(); renderCart(); });
+
+  /********* تسجيل و دخول بسيط *********/
+  registerBtn.addEventListener('click', ()=>{
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const pass = document.getElementById('regPass').value;
+    if(!name || !email || !pass){ authMsg.textContent='املأ جميع الحقول'; return; }
+    if(users.find(u=>u.email===email)){ authMsg.textContent='هذا البريد مسجل بالفعل'; return; }
+    users.push({name,email,pass});
+    localStorage.setItem('users_maher', JSON.stringify(users));
+    authMsg.style.color='green'; authMsg.textContent='تم إنشاء الحساب بنجاح';
+    setTimeout(()=>{ authMsg.textContent=''; authMsg.style.color='var(--danger)'; },2500);
+  });
+
+  loginBtn.addEventListener('click', ()=>{
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPass').value;
+    const user = users.find(u=>u.email===email && u.pass===pass);
+    if(!user){ authMsg.textContent='بيانات غير صحيحة'; return; }
+    currentUser = user;
+    localStorage.setItem('user_logged_maher', JSON.stringify(currentUser));
+    authMsg.style.color='green'; authMsg.textContent='تم تسجيل الدخول';
+    setTimeout(()=>{ authMsg.textContent=''; authMsg.style.color='var(--danger)'; },2000);
+  });
+
+  /********* بحث وفلترة *********/
+  searchBtn.addEventListener('click', ()=>{
+    const q = searchInput.value.trim();
+    const f = filterSelect.value;
+    const filtered = cars.filter(c=>{
+      const matchQ = q ? (c.title + ' ' + c.desc).toLowerCase().includes(q.toLowerCase()) : true;
+      const matchF = f ? c.type === f : true;
+      return matchQ && matchF;
+    });
+    displayedCount = filtered.length;
+    renderCars(filtered);
+  });
+
+  /********* شراء الآن ودفـع وهمي *********/
+  buyNowBtn.addEventListener('click', ()=>{
+    if(!currentUser){ alert('يرجى تسجيل الدخول أولاً لإتمام الشراء'); carModal.style.display='none'; return; }
+    addToCart(selectedCar.id);
+    goToPayment();
+  });
+
+  checkoutBtn.addEventListener('click', ()=>{
+    if(cart.length===0){ alert('السلة فارغة'); return; }
+    if(!currentUser){ alert('يرجى تسجيل الدخول لإتمام الشراء'); return; }
+    goToPayment();
+  });
+
+  function goToPayment(){
+    paymentSection.style.display = 'block';
+    window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+  }
+
+  payBtn.addEventListener('click', ()=>{
+    const name = document.getElementById('cardName').value.trim();
+    const number = document.getElementById('cardNumber').value.trim();
+    const expiry = document.getElementById('cardExpiry').value.trim();
+    const cvv = document.getElementById('cardCvv').value.trim();
+    if(!name || !number || !expiry || !cvv){ payMsg.style.color='var(--danger)'; payMsg.textContent='املأ بيانات البطاقة كاملة'; return; }
+    payMsg.style.color='green';
+    payMsg.textContent = 'تمت عملية الدفع بنجاح. شكراً لثقتك بمعرض الحاج ماهر';
+    cart = []; saveCart(); renderCart();
+    setTimeout(()=>{ paymentSection.style.display='none'; payMsg.textContent=''; },3000);
+  });
+
+  cancelPay.addEventListener('click', ()=>{ paymentSection.style.display='none'; });
+
+  /********* تواصل *********/
+  document.getElementById('sendContact').addEventListener('click', ()=>{
+    const n = document.getElementById('contactName').value.trim();
+    const e = document.getElementById('contactEmail').value.trim();
+    const m = document.getElementById('contactMsg').value.trim();
+    if(!n || !e || !m){ alert('املأ جميع حقول التواصل'); return; }
+    alert('تم إرسال رسالتك. سنتواصل معك قريباً.');
+    document.getElementById('contactName').value=''; document.getElementById('contactEmail').value=''; document.getElementById('contactMsg').value='';
+  });
+
+  /********* تهيئة العرض *********/
+  function init(){
+    renderCars(cars);
+    renderCart();
+  }
+  init();
+
+  /********* وظائف مساعدة للوصول *********/
+  function scrollToSection(id){
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  }
+
+  // تعريض الوظائف للعالم لسهولة التجربة من HTML
+  window.openDetails = openDetails;
+  window.addToCart = addToCart;
+  window.removeFromCart = removeFromCart;
+</script>
+
+</body>
+</html>
